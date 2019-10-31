@@ -41,4 +41,4 @@ Os seguintes critérios serão usados para avaliar o seu código:
 
 ## Dúvidas
 
-Caso surjam quanto aos requisitos, entre em contato conosco pelo nosso email: desafiotoro@toroinvestimentos.com.br
+Caso surjam dúvidas, entre em contato conosco pelo nosso email: desafiotoro@toroinvestimentos.com.br
