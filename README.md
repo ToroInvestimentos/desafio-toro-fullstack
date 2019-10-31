@@ -12,7 +12,7 @@ As cotações devem ser recebidas a partir do nosso simulador de cotações que 
 
 ## Requisitos
 
-- O projeto deve ser publicado em um repositório público no github.com ou bitbucket.org
+- O projeto deve ser publicado em um repositório público no github.com, bitbucket.org ou gitlab.com
 - Testes automatizados
 - README com instruções de como instalar as dependências do projeto, de como rodar a aplicação e os testes automatizados e de como fazer o deploy
 - Deve ser desenvolvido em C# (.net core), Python 3 ou Typescript (node.js)
