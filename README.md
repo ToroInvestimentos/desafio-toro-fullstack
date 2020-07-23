@@ -8,7 +8,7 @@ Crie um app que implemente as seguintes funcionalidades:
 - Permitir que o usuário faça aportes e retiradas na sua conta;
 - Permitir a compra e venda de ações, de acordo com a cotação atual, subtraindo e somando do saldo da conta, respectivamente;
 
-As cotações devem ser recebidas a partir do nosso simulador de cotações que pode ser acessado usando docker com o seguinte comando: `docker run -p 8080:8080 toroinvestimentos/quotesmock`. O fluxo de cotações está no endpoint `/quotes`, na porta `8080`.
+As cotações devem ser recebidas a partir do nosso simulador de cotações que pode ser acessado usando docker com o seguinte comando: `docker run -p 8080:8080 toroinvest/quotesmock`. O fluxo de cotações está no endpoint `/quotes`, na porta `8080`.
 
 ## Requisitos
 
