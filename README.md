@@ -6,7 +6,7 @@ Bem-vindo ao desafio de programação da Toro Investimentos.
 
 Considere as seguintes User Stories:
 
-`TORO-001` - Eu, como investidor, gostaria de acessar a plataforma Toro usando minhas credenciais de usuário e senha, para que eu possa 
+`TORO-001` - Eu, como investidor, gostaria de acessar a plataforma Toro usando minhas credenciais de usuário e senha, para que eu possa aprender mais, investir mais e acompanhar meus investimentos.
 
 
 `TORO-002` - Eu, como investidor, gostaria de visualizar meu saldo, meus investimentos e meu patrimônio total na Toro.
