@@ -58,16 +58,33 @@ O Desafio Técnico da Toro Investimentos é composto de 2 etapas. A **primeira e
 
 Você está vivendo um dia a dia real nosso, as histórias acima são inspiradas em histórias reais elaboradas por nossos Product Managers (PM ou PO). Você, no papel de Time de Desenvolvimento, tem a liberdade para propor, discutir e implementar da melhor forma possível, buscando entregar o maior valor ao usuário no menor tempo, sem comprometer os requisitos, inclusive de qualidade.
 
-Para a o dia da **segunda etapa**, online, você precisa trazer pelo menos uma das histórias acima implementadas. Como sugestão recomendamos trazer a US `TORO-001`, mas você tem liberdade para trazer outra(s).
+A primeira etapa do desafio consiste em você escolher uma das histórias acima e implementá-la. Prepare seu ambiente, crie um novo projeto, e implemente uma das USs. Este é o momento para considerar:
+
+- Qual padrão arquitetural será adotado MVC? Clean Architecture? APIs Restful? 
+- Como irei automatizar os testes? Em quais níveis irei implementar testes? Unitário? Integração? E2E?
+- Adotarei algum framework? Quais?
+
+Então é isso. Escolha uma as 4 Histórias de usuário acima e Mãos à obra! Te esperamos na segunda etapa!
 
 ## Segunda Etapa: online, juntos :floppy_disk:
 
-No dia da **segunda etapa**, iremos homologar a US que você trouxe pronto da **primeira etapa** e também iremos escolher, em time, a(s) próxima(s) US(s) a serem implementadas.
+No dia da **segunda etapa**, iremos homologar a História de Usuário (US) que você trouxe pronto da **primeira etapa**. 
+
+Iremos também fazer algumas perguntas sobre algumas das decisões tomadas por você em cima do seu projeto. Enfim, iremos conhecer melhor seu skill técnico. 
+
+Iremos também escolher juntos uma próxima História que poderá ser feita junto com a gente, online, dentro do tempo estipulado para a segunda etapa. Exatamente como se você estive com a gente numa sprint de Scrum.
+
+## É isso! 
+
+O desafio está dado o que foi colocado até aqui já é suficiente para realizá-lo. Resumindo:
+
+1. Primeira etapa: Em casa :house_with_garden: : Escolha uma das Historias de Usuário entre as 4 acima. Prepare seu ambiente e traga a historia implementada para a segunda etapa!
+
+2. Segunda Etapa: online, juntos :floppy_disk: : iremos homologar a História de Usuário (US) que você trouxe, fazer perguntas técnicas e eventualmente implementar uma segunda histórias juntos.
 
 
-## É isso!
-
-O desafio está dado e é somente isso. Abaixo, para efeito de direcionar o desafio, vamos te ajudar e propor um caminho para sua implementação. Mais uma vez, aqui é apenas um guia/sugestão, você tem total autonomia para fazer diferente, desde que atenda aos requisitos impostos pelas USs.
+## Daqui pra baixo é apenas material complementar de suporte ao seu desafio.
+Abaixo, para efeito de direcionar o desafio, vamos te ajudar e propor um caminho para sua implementação. Mais uma vez, aqui é apenas um guia/sugestão, você tem total autonomia para fazer diferente, desde que atenda aos requisitos impostos pelas USs.
 
 Se analisarmos o conjunto das USs tragas pelo nosso PM/PO acima, podemos já antecipar algumas Entidades necessárias na solução final:
 
