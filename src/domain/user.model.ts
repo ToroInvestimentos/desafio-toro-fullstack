@@ -1,17 +1,26 @@
+import { Account } from "./account.model";
+import { Asset } from "./asset.model";
+import { UserAsset } from "./userAsset.model";
 import { Wallet } from "./wallet.model";
 
 export class User {
-    public cpf: string;
     public name: string;
+    public cpf: string;
+    public account: Account;
     public wallet: Wallet;
 
     /**
      *
      */
-    constructor(accountCode: string, cpf: string, name: string, balance: number = 0) {
-        this.cpf = cpf;
+    constructor(name: string, cpf: string, account: Account, wallet: Wallet) {
         this.name = name;
+        this.cpf = cpf;
+        
+        if (!account) {
+            account = new Account(this);
+        }
 
-        this.wallet = new Wallet(accountCode, balance);
+        this.account = account;
+        this.wallet = wallet;
     }
 }

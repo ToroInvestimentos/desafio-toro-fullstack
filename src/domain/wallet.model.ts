@@ -1,35 +1,50 @@
-import { WalletItem } from "./walletItem.model";
+import { Asset } from "./asset.model";
+import { User } from "./user.model";
+import { UserAsset } from "./userAsset.model";
 
 export class Wallet {
-    public accountCode: string;
-    public balance: number;
-    public items: WalletItem[];
+    public assets: Array<UserAsset>;
+    public owner: User;
 
     /**
      *
      */
-    constructor(accountCode: string, balance: number = 0) {
-        this.accountCode = accountCode;
-        this.balance = balance;
-        this.items = [];
+    constructor(owner: User,  assets: Array<UserAsset> = new Array<UserAsset>()) {
+        this.owner = owner;
+        this.assets = assets;
     }
 
+    public buyAsset(asset: Asset, quantity: number): void {
+        try {
+            if (!this.owner.account) throw new Error(`User doesn't have an account`);
 
-    public addItem(item: WalletItem) {
-        this.items.push(item);
+            this.owner.account.withdraw(asset.currentValue * quantity);
+            this.assets.push(new UserAsset(quantity, asset));    
+        } catch (error) {
+            throw error;
+        }
     }
 
-    public findItemByAssetCode(assetCode: string): WalletItem | null {
-        const filteredItems = this.items.filter(x => x.asset?.assetCode == assetCode);
-        if (filteredItems.length === 0) return null;
+    public sellAsset(asset: Asset, quantity: number): void {
+        try {
+            if (!this.owner.account) throw new Error(`User doesn't have an account`);
+            this.removeUserAsset(asset, quantity);
+            this.owner.account.deposit(asset.currentValue * quantity);
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    private removeUserAsset(asset: Asset, quantity: number): void {
+        const index = this.assets.findIndex(x => x.asset.id === asset.id);
+        const userAsset = this.assets[index];
+
+        if (quantity > userAsset.quantity) throw new Error(`User can't sell more assets that it has`);
         
-        return filteredItems[0];
+        if (quantity < userAsset.quantity) {
+            this.assets[index].quantity -= quantity;
+        } else {
+            this.assets.splice(index, 1);
+        }
     }
-
-    public removeItem(item: WalletItem) {
-        const index = this.items.indexOf(item, 0);
-        if (index > -1) this.items.splice(index, 1);
-    }
-
-
 }
