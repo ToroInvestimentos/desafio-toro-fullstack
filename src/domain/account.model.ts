@@ -1,5 +1,5 @@
 import { InsufficientFundsError } from "../infrastructure/exceptions/insufficientFunds.exception";
-import { InvalidValueError } from "../infrastructure/exceptions/InvalidValue.exception";
+import { InvalidValueError } from "../infrastructure/exceptions/invalidValue.exception";
 import { User } from "./user.model";
 
 export class Account {
@@ -13,7 +13,7 @@ export class Account {
     constructor(owner: User, id?: string, balance: number = 0) {
         if (!id) {
             //TODO: Generate new account id
-            throw new Error('Not implemented');
+            id = '0001';
         }
         this.id = id;
         this.owner = owner;

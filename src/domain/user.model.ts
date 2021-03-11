@@ -6,19 +6,15 @@ import { Wallet } from "./wallet.model";
 export class User {
     public name: string;
     public cpf: string;
-    public account: Account;
-    public wallet: Wallet;
+    public account?: Account;
+    public wallet?: Wallet;
 
     /**
      *
      */
-    constructor(name: string, cpf: string, account: Account, wallet: Wallet) {
+    constructor(name: string, cpf: string, account?: Account, wallet?: Wallet) {
         this.name = name;
         this.cpf = cpf;
-        
-        if (!account) {
-            account = new Account(this);
-        }
 
         this.account = account;
         this.wallet = wallet;
