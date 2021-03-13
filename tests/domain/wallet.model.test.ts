@@ -11,7 +11,7 @@ describe('WalletModel', () => {
     test('should buy asset', () => {
         // Arrange
         const user = new User('Test user', '01234567890');
-        const account = new Account(user, '0001', 10);
+        const account = new Account(user, 1, 10);
         user.account = account;
         const asset = new Asset('TEST1', 1);
         const sut = new Wallet(user);
@@ -31,7 +31,7 @@ describe('WalletModel', () => {
     test('should sell all assets', () => {
         // Arrange
         const user = new User('Test user', '01234567890');
-        const account = new Account(user, '0001', 10);
+        const account = new Account(user, 1, 10);
         user.account = account;
         
         const asset = new Asset('TEST1', 1);
@@ -52,7 +52,7 @@ describe('WalletModel', () => {
     test('should sell one asset of the wallet', () => {
         // Arrange
         const user = new User('Test user', '01234567890');
-        const account = new Account(user, '0001', 10);
+        const account = new Account(user, 1, 10);
         user.account = account;
         
         const asset = new Asset('TEST1', 1);
@@ -75,7 +75,7 @@ describe('WalletModel', () => {
     test('should fail to sell insufficient assets of the wallet', () => {
         // Arrange
         const user = new User('Test user', '01234567890');
-        const account = new Account(user, '0001', 10);
+        const account = new Account(user, 1, 10);
         user.account = account;
         
         const asset = new Asset('TEST1', 1);

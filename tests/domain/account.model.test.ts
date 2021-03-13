@@ -8,7 +8,7 @@ describe('AccountModel', () => {
     test('should deposit value', () => {
         // Arrange
         const user = new User('Test user', '01234567890');
-        const sut = new Account(user, '0001', 10);
+        const sut = new Account(user, 1, 10);
         
         // Act
         sut.deposit(10);
@@ -20,7 +20,7 @@ describe('AccountModel', () => {
     test('should withdraw value', () => {
         // Arrange
         const user = new User('Test user', '01234567890');
-        const sut = new Account(user, '0001', 10);
+        const sut = new Account(user, 1, 10);
         
         // Act
         sut.withdraw(5);
@@ -33,7 +33,7 @@ describe('AccountModel', () => {
     test('should fail when try to deposit with an invalid value', () => {
         // Arrange
         const user = new User('Test user', '01234567890');
-        const sut = new Account(user, '0001', 10);
+        const sut = new Account(user, 1, 10);
         
         // Assert
         expect(() => { sut.deposit(-10) }).toThrow(InvalidValueException); 
@@ -42,7 +42,7 @@ describe('AccountModel', () => {
     test('should fail when try to withdraw with an invalid value', () => {
         // Arrange
         const user = new User('Test user', '01234567890');
-        const sut = new Account(user, '0001', 10);
+        const sut = new Account(user, 1, 10);
         
         // Assert
         expect(() => { sut.withdraw(-10) }).toThrow(InvalidValueException); 
@@ -51,7 +51,7 @@ describe('AccountModel', () => {
     test('should fail when try to withdraw with insufficient funds', () => {
         // Arrange
         const user = new User('Test user', '01234567890');
-        const sut = new Account(user, '0001', 10);
+        const sut = new Account(user, 1, 10);
         
         // Assert
         expect(() => { sut.withdraw(100) }).toThrow(InsufficientFundsException); 

@@ -1,11 +1,9 @@
 import { inject, injectable } from "inversify";
 import { Account } from "../domain/account.model";
-import { User } from "../domain/user.model";
 import { DepositDto } from "../infrastructure/dto/deposit.dto";
 import { InvalidDtoException } from "../infrastructure/exceptions/invalidDto.exception";
 import { InvalidOperationException } from "../infrastructure/exceptions/invalidOperation.exception";
 import { AccountRepository } from "../infrastructure/repositories/account.repository";
-import { UserRepository } from "../infrastructure/repositories/user.repository";
 
 @injectable()
 export class AccountService {

@@ -24,7 +24,8 @@ export class SbpController {
             res.sendStatus(200);
         } catch (error) {
             const processedError: HttpError = this.processError(error)
-            res.status(processedError.statusCode)
+            res.type('application/json')
+                .status(processedError.statusCode)
                 .send({ message: processedError.message });
         }
     }
