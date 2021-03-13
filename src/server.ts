@@ -6,13 +6,12 @@ import { SbpController } from "./controller/sbp.controller";
 @injectable()
 export class Server {
     public server: express.Express;
-    private _sbpController: SbpController;
 
-    constructor() {
+    constructor(
+        @inject(SbpController) private _sbpController: SbpController
+    ) {
         this.server = express();
         this.server.use(bodyParser.json());
-
-        this._sbpController = new SbpController();
 
         this.setupRoutes();
     }

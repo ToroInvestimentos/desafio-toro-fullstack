@@ -1,19 +1,20 @@
 import { Request, Response } from "express";
+import { inject, injectable } from "inversify";
 import { DepositDto } from "../infrastructure/dto/deposit.dto";
 import { HttpError } from "../infrastructure/dto/httpError.dto";
 import { InvalidDtoException } from "../infrastructure/exceptions/invalidDto.exception";
 import { InvalidOperationException } from "../infrastructure/exceptions/invalidOperation.exception";
 import { AccountService } from "../service/account.service";
 
+@injectable()
 export class SbpController {
-
-    private _accountService: AccountService;
 
     /**
      *
      */
-    constructor() {
-        this._accountService = new AccountService();
+    constructor(
+        @inject(AccountService) private _accountService: AccountService
+    ) {
     }
 
     public events = async (req: Request, res: Response): Promise<void> => {

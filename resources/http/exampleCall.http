@@ -1,0 +1,17 @@
+POST http://localhost:3000/sbp/events HTTP/1.1
+Content-Type: application/json
+
+{
+    "event": "TRANSFER",
+    "target": {
+        "bank": "352", 
+        "branch": "0001", 
+        "account": "300123"
+    },
+    "origin": {
+        "bank": "033", 
+        "branch": "03312", 
+        "cpf": "45358996060" 
+    },
+    "amount": 1000
+}

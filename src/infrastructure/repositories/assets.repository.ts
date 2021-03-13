@@ -1,5 +1,7 @@
+import { injectable } from "inversify";
 import { Asset } from "../../domain/asset.model";
 
+@injectable()
 export class AssetRepository {
     protected assets: Array<Asset>;
 

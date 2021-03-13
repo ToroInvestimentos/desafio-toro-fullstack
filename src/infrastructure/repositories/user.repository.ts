@@ -1,6 +1,8 @@
+import { injectable } from "inversify";
 import { User } from "../../domain/user.model";
 import { EntityNotFoundException } from "../exceptions/entityNotFound.exception";
 
+@injectable()
 export class UserRepository {
     protected users: Array<User>;
 

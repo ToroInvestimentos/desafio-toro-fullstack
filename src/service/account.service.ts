@@ -1,3 +1,4 @@
+import { inject, injectable } from "inversify";
 import { Account } from "../domain/account.model";
 import { DepositDto } from "../infrastructure/dto/deposit.dto";
 import { InvalidDtoException } from "../infrastructure/exceptions/invalidDto.exception";
@@ -5,15 +6,15 @@ import { InvalidOperationException } from "../infrastructure/exceptions/invalidO
 import { AccountRepository } from "../infrastructure/repositories/account.repository";
 import { UserRepository } from "../infrastructure/repositories/user.repository";
 
+@injectable()
 export class AccountService {
     
-    private _accountRepository: AccountRepository;
-
     /**
      *
      */
-    constructor() {
-        this._accountRepository = new AccountRepository();
+    constructor(
+        @inject(AccountRepository) private _accountRepository: AccountRepository
+    ) {
     }
 
     public DepositValue(deposit: DepositDto) {
