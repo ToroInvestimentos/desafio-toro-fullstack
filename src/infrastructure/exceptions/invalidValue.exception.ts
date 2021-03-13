@@ -1,5 +1,5 @@
-export class InvalidValueError implements Error {
-    public name: string = 'InvalidValueError';
+export class InvalidValueException implements Error {
+    public name: string = 'InvalidValueException';
     public message: string = 'Invalid value for this operation';
     public stack?: string | undefined;
 

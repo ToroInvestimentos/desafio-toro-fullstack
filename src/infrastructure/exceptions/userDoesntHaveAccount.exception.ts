@@ -1,4 +1,4 @@
-export class UserDoesntHaveAccount implements Error {
+export class UserDoesntHaveAccountException implements Error {
     public name: string = 'UserDoesntHaveAccount';
     public message: string = 'User does not have an account';
     public stack?: string | undefined;

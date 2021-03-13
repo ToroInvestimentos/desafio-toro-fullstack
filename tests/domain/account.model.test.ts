@@ -1,7 +1,7 @@
 import { Account } from "../../src/domain/account.model";
 import { User } from "../../src/domain/user.model";
-import { InsufficientFundsError } from "../../src/infrastructure/exceptions/insufficientFunds.exception";
-import { InvalidValueError } from "../../src/infrastructure/exceptions/invalidValue.exception";
+import { InsufficientFundsException } from "../../src/infrastructure/exceptions/insufficientFunds.exception";
+import { InvalidValueException } from "../../src/infrastructure/exceptions/invalidValue.exception";
 
 describe('AccountModel', () => {
 
@@ -36,7 +36,7 @@ describe('AccountModel', () => {
         const sut = new Account(user, '0001', 10);
         
         // Assert
-        expect(() => { sut.deposit(-10) }).toThrow(InvalidValueError); 
+        expect(() => { sut.deposit(-10) }).toThrow(InvalidValueException); 
     });
 
     test('should fail when try to withdraw with an invalid value', () => {
@@ -45,7 +45,7 @@ describe('AccountModel', () => {
         const sut = new Account(user, '0001', 10);
         
         // Assert
-        expect(() => { sut.withdraw(-10) }).toThrow(InvalidValueError); 
+        expect(() => { sut.withdraw(-10) }).toThrow(InvalidValueException); 
     });
 
     test('should fail when try to withdraw with insufficient funds', () => {
@@ -54,7 +54,7 @@ describe('AccountModel', () => {
         const sut = new Account(user, '0001', 10);
         
         // Assert
-        expect(() => { sut.withdraw(100) }).toThrow(InsufficientFundsError); 
+        expect(() => { sut.withdraw(100) }).toThrow(InsufficientFundsException); 
     });
 
 })

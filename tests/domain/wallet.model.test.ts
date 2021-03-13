@@ -3,8 +3,8 @@ import { Asset } from "../../src/domain/asset.model";
 import { User } from "../../src/domain/user.model";
 import { UserAsset } from "../../src/domain/userAsset.model";
 import { Wallet } from "../../src/domain/wallet.model";
-import { InsufficientAssets } from "../../src/infrastructure/exceptions/insufficientAssets.exception";
-import { UserDoesntHaveAccount } from "../../src/infrastructure/exceptions/userDoesntHaveAccount.exception";
+import { InsufficientAssetsException } from "../../src/infrastructure/exceptions/insufficientAssets.exception";
+import { UserDoesntHaveAccountException } from "../../src/infrastructure/exceptions/userDoesntHaveAccount.exception";
 
 describe('WalletModel', () => {
 
@@ -85,7 +85,7 @@ describe('WalletModel', () => {
         const sut = new Wallet(user, userAssets);
         
         // Assert
-        expect(()=> { sut.sellAsset(asset, 10) }).toThrow(InsufficientAssets);
+        expect(()=> { sut.sellAsset(asset, 10) }).toThrow(InsufficientAssetsException);
         
     });
 
@@ -100,7 +100,7 @@ describe('WalletModel', () => {
         const sut = new Wallet(user, userAssets);
         
         // Assert
-        expect(()=> { sut.buyAsset(asset, 10) }).toThrow(UserDoesntHaveAccount);
+        expect(()=> { sut.buyAsset(asset, 10) }).toThrow(UserDoesntHaveAccountException);
         
     });
 
@@ -115,7 +115,7 @@ describe('WalletModel', () => {
         const sut = new Wallet(user, userAssets);
         
         // Assert
-        expect(()=> { sut.sellAsset(asset, 5) }).toThrow(UserDoesntHaveAccount);
+        expect(()=> { sut.sellAsset(asset, 5) }).toThrow(UserDoesntHaveAccountException);
         
     });
 

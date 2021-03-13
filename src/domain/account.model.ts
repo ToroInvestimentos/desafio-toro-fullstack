@@ -1,5 +1,5 @@
-import { InsufficientFundsError } from "../infrastructure/exceptions/insufficientFunds.exception";
-import { InvalidValueError } from "../infrastructure/exceptions/invalidValue.exception";
+import { InsufficientFundsException } from "../infrastructure/exceptions/insufficientFunds.exception";
+import { InvalidValueException } from "../infrastructure/exceptions/invalidValue.exception";
 import { User } from "./user.model";
 
 export class Account {
@@ -21,14 +21,14 @@ export class Account {
     }
 
     public deposit(value: number) {
-        if (value < 0) throw new InvalidValueError('Invalid value to deposit');
+        if (value < 0) throw new InvalidValueException('Invalid value to deposit');
         
         this.balance += value;
     }
 
     public withdraw(value: number) {
-        if (value < 0) throw new InvalidValueError('Invalid value to withdraw');
-        if (this.balance < value) throw new InsufficientFundsError();
+        if (value < 0) throw new InvalidValueException('Invalid value to withdraw');
+        if (this.balance < value) throw new InsufficientFundsException();
         this.balance -= value;
     }
 }

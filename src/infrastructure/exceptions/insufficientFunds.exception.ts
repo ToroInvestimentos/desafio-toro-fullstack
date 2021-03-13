@@ -1,5 +1,5 @@
-export class InsufficientFundsError implements Error {
-    name: string = 'InsufficientFundsError';
+export class InsufficientFundsException implements Error {
+    name: string = 'InsufficientFundsException';
     message: string = 'Insufficient funds';
     stack?: string | undefined;
 
