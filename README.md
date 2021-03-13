@@ -6,11 +6,18 @@
 
 Apesar da minha fluência ser em C#, optei por fazer o desafio em Node com Typescript pois, pelo que percebi na entrevista, hoje é onde existe a maior demanda. Optei por implementar a *User Story* TORO-003. Implementei um pouco das outras histórias no domínio, porém não prossegui com testes ou integrações por questões de tempo.
 
-Optei por seguir o modelo clássico de camadas do DDD, dividindo as responsabilidades em camadas de *Controller*, *Service*, *Domain*, e uma de Infraestrutura suportando as demais.
+Optei por seguir o modelo clássico de camadas do DDD, dividindo as responsabilidades em camadas de *Controller*, *Service*, *Domain*, e uma de Infraestrutura suportando as demais. O projeto utiliza o `inversify` como pacote para gestão de injeção de dependências, `pg` como conector com o banco de dados *Postgre*, `jest` e `supertest` para os testes (que podem ser executados com o comando `npm test`).
 
 É possível executar o projeto localmente usando o comando `npm run buildAndRun`, porém também incluí na solução um *Docker Compose* que inicia dois containers (um para API e outro para o Banco de dados) onde é possível testar a solução de forma mais simples. O arquivo de configuração do *Docker* para a API está usando o modelo de *multi-stage build*, com a intenção de reduzir o tamanho do container final.
 
-As configurações para acesso ao banco de dados são feitas através de varíaveis de ambiente, configuradas no arquivo de configuração do *Docker Compose*. Para execução local é necessário configurar as variáveis de ambiente. Incluí um arquivo `.env` (apesar de normalmente ser excluído via `.gitignore`) para ser usado como referência caso desejem executar localmente.
+As configurações para acesso ao banco de dados são feitas através de varíaveis de ambiente, configuradas no arquivo de configuração do *Docker Compose*. Para execução local é necessário configurar as variáveis de ambiente. Os valores de referência que utilizei em meu ambiente de desenvolvimento foram:
+
+```env
+POSTGRES_USER=postgres
+POSTGRES_HOST=localhost
+POSTGRES_DATABASE=Toro
+POSTGRES_PASSWORD=desafio-toro
+```
 
 O container do banco usa o arquivo `/resources/docker/database/init.sql` como base para criação do banco de dados, suas tabelas, e um seed inicial com os dados do exemplo descrito no enunciado do desafio. Caso sejam feitas alterações no mesmo, é necessário refazer o *build* do *Docker Compose* (preferencialmente sem usar cache) para que o mesmo seja copiado para dentro do container e executado ao iniciar o mesmo.
 
