@@ -1,5 +1,6 @@
 import { inject, injectable } from "inversify";
 import { Account } from "../domain/account.model";
+import { User } from "../domain/user.model";
 import { DepositDto } from "../infrastructure/dto/deposit.dto";
 import { InvalidDtoException } from "../infrastructure/exceptions/invalidDto.exception";
 import { InvalidOperationException } from "../infrastructure/exceptions/invalidOperation.exception";
@@ -17,11 +18,11 @@ export class AccountService {
     ) {
     }
 
-    public DepositValue(deposit: DepositDto) {
+    public async DepositValue(deposit: DepositDto) {
         this.ValidateDepositObject(deposit);
-        const account = this._accountRepository.getAccountById(deposit.target.account);
+        const account = await this._accountRepository.getAccountById(deposit.target.account);
         this.ValidateCPF(deposit, account);
-        account.deposit(deposit.amount);
+        this.Deposit(deposit.amount, account);
     }
 
     private ValidateDepositObject(deposit: DepositDto) {
@@ -33,6 +34,11 @@ export class AccountService {
 
     private ValidateCPF(deposit: DepositDto, account: Account) {
         if (deposit.origin.cpf !== account.owner.cpf) throw new InvalidOperationException('Transfers can only be made to the same CPF');
+    }
+
+    private Deposit(amount: number, account: Account) {
+        account.deposit(amount);
+        this._accountRepository.updateAccount(account);
     }
 
 }

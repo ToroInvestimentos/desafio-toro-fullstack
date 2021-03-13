@@ -1,6 +1,6 @@
 version: '3'
 services: 
-    webapi:
+    toro-api:
         build: 
             context: .
             dockerfile: ./resources/docker/application/dockerfile
@@ -10,8 +10,11 @@ services:
         - postgres
         environment: 
         - NODE_ENV=production
-        - DATABASE_URI=postgres
-        - DATABASE_PORT=5432
+        - POSTGRES_PORT=5432
+        - POSTGRES_USER=postgres
+        - POSTGRES_HOST=postgres
+        - POSTGRES_DATABASE=Toro
+        - POSTGRES_PASSWORD=desafio-toro
         command: sh -c "dockerize -wait tcp://postgres:5432 -timeout 300s -wait-retry-interval 1s node index.js"
     postgres:
         build: ./resources/docker/database

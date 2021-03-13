@@ -1,12 +1,12 @@
 import { BankAccountDto } from "./bankAccount.dto";
 
 export class TargetDto extends BankAccountDto {
-    public account: string;
+    public account: number;
 
     /**
      *
      */
-    constructor(bank: string, branch: string, account: string) {
+    constructor(bank: string, branch: string, account: number) {
         super(bank, branch);
         this.account = account;
     }

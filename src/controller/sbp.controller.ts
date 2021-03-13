@@ -20,7 +20,7 @@ export class SbpController {
     public events = async (req: Request, res: Response): Promise<void> => {
         try {
             const depositDto: DepositDto = req.body;
-            this._accountService.DepositValue(depositDto);
+            await this._accountService.DepositValue(depositDto);
             res.sendStatus(200);
         } catch (error) {
             const processedError: HttpError = this.processError(error)

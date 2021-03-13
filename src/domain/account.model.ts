@@ -3,21 +3,19 @@ import { InvalidValueException } from "../infrastructure/exceptions/invalidValue
 import { User } from "./user.model";
 
 export class Account {
-    public id: string;
+    public id?: number;
     public balance: number;
     public owner: User;
 
     /**
      *
      */
-    constructor(owner: User, id?: string, balance: number = 0) {
-        if (!id) {
-            //TODO: Generate new account id
-            id = '0001';
-        }
-        this.id = id;
+    constructor(owner: User, id?: number, balance: number = 0) {
+        if (id) this.id = id;
         this.owner = owner;
         this.balance = balance;
+
+        if (!this.owner.account) this.owner.account = this;
     }
 
     public deposit(value: number) {

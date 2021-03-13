@@ -2,7 +2,7 @@ FROM postgres
 
 EXPOSE 5432:5432
 
-ENV POSTGRES_PASSWORD challengeHurb
-ENV POSTGRES_DB CurrencyExchange
+ENV POSTGRES_PASSWORD desafio-toro
+ENV POSTGRES_DB Toro
 COPY init.sql /docker-entrypoint-initdb.d/
 

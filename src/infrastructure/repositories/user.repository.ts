@@ -1,15 +1,24 @@
 import { injectable } from "inversify";
 import { User } from "../../domain/user.model";
 import { EntityNotFoundException } from "../exceptions/entityNotFound.exception";
+import { Pool } from "pg";
 
 @injectable()
 export class UserRepository {
     protected users: Array<User>;
+    private pool: Pool
 
     /**
      *
      */
     constructor() {
+        this.pool = new Pool({
+            user: process.env.POSTGRES_USER,
+            host: process.env.POSTGRES_HOST,
+            database: process.env.POSTGRES_DATABASE,
+            password: process.env.POSTGRES_PASSWORD,
+            port: parseInt(process.env.POSTGRES_PORT || '5432')
+        });
         this.users = new Array<User>();
     }
 
