@@ -12,15 +12,15 @@ export class AssetRepository {
         this.assets = new Array<Asset>();
     }
 
-    public getMostNegotiated(quantity: number = 5) {
+    public getMostNegotiated(quantity: number = 5): Array<Asset> {
         return this.assets.sort((a, b) => b.negotationRate - a.negotationRate).slice(0,quantity);
     }
 
-    public addAsset(asset: Asset) {
+    public addAsset(asset: Asset): void {
         this.assets.push(asset);
     }
 
-    public removeAsset(asset: Asset) {
+    public removeAsset(asset: Asset): void {
         const index = this.assets.indexOf(asset);
         if (index === -1) {
             throw new Error('Asset not found');

@@ -22,11 +22,11 @@ export class UserRepository {
         this.users = new Array<User>();
     }
 
-    public getUsers() {
+    public getUsers(): Array<User> {
         return this.users;
     }
 
-    public getUserByCpf(cpf: string) {
+    public getUserByCpf(cpf: string): User {
         const filteredUsers = this.users.filter(x => x.cpf === cpf);
         
         if (filteredUsers.length === 0) {
@@ -38,16 +38,16 @@ export class UserRepository {
         }
     }
 
-    public addUser(user: User) {
+    public addUser(user: User): void {
         this.users.push(user);
     }
 
-    public updateUser(user: User) {
+    public updateUser(user: User): void {
         const userIndex = this.findUserIndex(user);
         this.users[userIndex] = user;
     }
 
-    public removeUser(user: User) {
+    public removeUser(user: User): void {
         const userIndex = this.findUserIndex(user);
         this.users.splice(userIndex, 1);
     }

@@ -100,7 +100,7 @@ export class AccountRepository {
         return newAccount;
     }
 
-    public async updateAccount(account: Account) {
+    public async updateAccount(account: Account): Promise<void> {
         const sqlCommand = `UPDATE Account A
                             SET balance = $2,
                                 ownercpf = $3
