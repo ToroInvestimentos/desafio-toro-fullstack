@@ -1,249 +1,61 @@
 # Desafio Toro Desenvolvedor Full-Stack e Backend
 
-Bem-vindo ao desafio de programação da Toro Investimentos.
+*Candidato: Vinicius Cardoso Bandeira*
 
-## Histórias de Usuário
+## Notas
 
-Considere as seguintes User Stories:
+Apesar da minha fluência ser em C#, optei por fazer o desafio em Node com Typescript pois, pelo que percebi na entrevista, hoje é onde existe a maior demanda. Optei por implementar a *User Story* TORO-003. Implementei um pouco das outras histórias no domínio, porém não prossegui com testes ou integrações por questões de tempo.
 
-`TORO-001` - Eu, como investidor, gostaria de acessar a plataforma Toro usando minhas credenciais de usuário e senha, para que eu possa aprender mais, investir mais e acompanhar meus investimentos.
+Optei por seguir o modelo clássico de camadas do DDD, dividindo as responsabilidades em camadas de *Controller*, *Service*, *Domain*, e uma de Infraestrutura suportando as demais. O projeto utiliza o `inversify` como pacote para gestão de injeção de dependências, `pg` como conector com o banco de dados *Postgre*, `jest` e `supertest` para os testes (que podem ser executados com o comando `npm test`).
 
+É possível executar o projeto localmente usando o comando `npm run buildAndRun`, porém também incluí na solução um *Docker Compose* que inicia dois containers (um para API e outro para o Banco de dados) onde é possível testar a solução de forma mais simples. O arquivo de configuração do *Docker* para a API está usando o modelo de *multi-stage build*, com a intenção de reduzir o tamanho do container final.
 
-`TORO-002` - Eu, como investidor, gostaria de visualizar meu saldo, meus investimentos e meu patrimônio total na Toro.
+As configurações para acesso ao banco de dados são feitas através de varíaveis de ambiente, configuradas no arquivo de configuração do *Docker Compose*. Para execução local é necessário configurar as variáveis de ambiente. Os valores de referência que utilizei em meu ambiente de desenvolvimento foram:
 
-- Restrições: 
-  - Patrimônio do usuário deve conter as seguintes informações
-     - Saldo atualmente em conta corrente
-     - Lista de ativos (ações) pertencentes ao usuário, com quantidade de cada ativo e valor individual atual de cada um. (Ex: 10 ações PETR4, valor individual R$25,00)
-     - Patrimônio sumarizado (Saldo + Valor totalizado dos ativos)
+```env
+POSTGRES_USER=postgres
+POSTGRES_HOST=localhost
+POSTGRES_DATABASE=Toro
+POSTGRES_PASSWORD=desafio-toro
+```
 
+O container do banco usa o arquivo `/resources/docker/database/init.sql` como base para criação do banco de dados, suas tabelas, e um seed inicial com os dados do exemplo descrito no enunciado do desafio. Caso sejam feitas alterações no mesmo, é necessário refazer o *build* do *Docker Compose* (preferencialmente sem usar cache) para que o mesmo seja copiado para dentro do container e executado ao iniciar o mesmo.
 
-`TORO-003` - Eu, como investidor, gostaria de poder depositar um valor na minha conta Toro, através de PiX ou TED bancária, para que eu possa realizar investimentos.
+Também implementei uma rota simples (`/healthcheck`) para uso pelo time de operações em cenários onde a aplicação é executada em algum orquestrador de containers, como o *Kubernetes*. Ficou pendente a implementação de uma rota `/readiness` para fazer com que o serviço seja integrado ao *Load balancer* nesse tipo de cenário. Nessa rota ausente seria necessário testar a conexão com o banco de dados (em alguns casos um simples *ping* no servidor do banco já resolveria) para informar ao orquestrador que o serviço está pronto para responder.
 
-- Restrições:
+Peço desculpas por algumas falhas no código. Vários pontos no código podem ser melhorados, como a redução de códigos duplicados e a implementação de testes de integração (fiz apenas os de unidade), porém tive pouco tempo para conseguir atuar nesse desafio por problemas profissionais e pessoais. 
 
-   - A Toro já participa do Sistema Brasileiro de Pagamentos (SPB) do Banco Central, e está integrado a ele. Isto significa que a Toro tem um número de banco (352), cada cliente tem um número único de conta na Toro, e que toda transferência entre bancos passa pelo SBP do Banco Central, e quando a transferência é identificada como tendo o destino o banco Toro (352), uma requisição HTTP é enviada pelo Banco Central notificando tal evento. O formato desta notificação segue o padrão REST + JSON a seguir (hipotético para efeito de simplificação do desafio):
+## Rodando o projeto
 
-   ```jsonc
-        POST <apiBaseUrl>/spb/events
+Como citado anteriormente, recomendo a execução via *Docker Compose* por sua simplicidade. Para iniciar, basta navegar até a raiz do projeto e executar o comando: `docker-compose up`. Na primeira execução todo o processo de construção será executado e isso pode levar alguns minutos. Porém as execuções seguintes são mais rápidas.
 
-        {
-        "event": "TRANSFER",
-        "target": {
-            "bank": "352", // Banco Toro
-            "branch": "0001", // Única agenda, sempre 0001
-            "account": "300123", // Conta do usuário na Toro (unica por usuário)
-        },
-        "origin": {
-            "bank": "033", // Banco de origem 
-            "branch": "03312", // Agencia de origem
-            "cpf": "45358996060" // CPF do remetente
-        },
-        "amount": 1000, // R$ 1000,00 reais
-        }
+Para testar a *User Story* escolhida basta efetuar a chamada de acordo com o modelo:
 
-    ``` 
-    - Outra restrição é que a origem da transferência deve sempre ser do mesmo CPF do usuário na Toro.
-
-
-`TORO-004` - Eu, como investidor, gostaria de ter acesso a uma lista de 5 ações mais negociadas nos últimos 7 dias, com seus respectivos preços, para que eu possa escolher uma delas e comprar a quantidade que eu escolher, respeitando o limite de saldo disponível na minha conta Toro, para que assim eu consiga possa montar minha carteira de investimentos.
-
-  - Restrições:
-
-     - Para efeito de simplificação do desafio, as 5 ações mais negociadas nos últimos 7 dias e seus respectivos preços não precisa ser "real", pode ser definida utilizando algum recurso pre-definido no backend (uma coleção predefinida no banco de dados ou arquivo JSON).
-
-## Primeira etapa: Em casa :house_with_garden:
-
-O Desafio Técnico da Toro Investimentos é composto de 2 etapas. A **primeira etapa** você deve fazer em casa e já implementar boa parte do problema, com o tempo que você precisar. A **segunda etapa** você fará online junto com o time da Toro (Techleads e/ou Desenvolvedores), e **deverá trazer a primeira etapa já desenvolvida**.
-
-Você está vivendo um dia a dia real nosso, as histórias acima são inspiradas em histórias reais elaboradas por nossos Product Managers (PM ou PO). Você, no papel de Time de Desenvolvimento, tem a liberdade para propor, discutir e implementar da melhor forma possível, buscando entregar o maior valor ao usuário no menor tempo, sem comprometer os requisitos, inclusive de qualidade.
-
-A primeira etapa do desafio consiste em você escolher uma das histórias acima e implementá-la. Prepare seu ambiente, crie um novo projeto, e implemente uma das USs. Este é o momento para considerar:
-
-- Qual padrão arquitetural será adotado MVC? Clean Architecture? APIs Restful? 
-- Como irei automatizar os testes? Em quais níveis irei implementar testes? Unitário? Integração? E2E?
-- Adotarei algum framework? Quais?
-
-Então é isso. Escolha uma as 4 Histórias de usuário acima e Mãos à obra! Te esperamos na segunda etapa!
-
-## Segunda Etapa: online, juntos :floppy_disk:
-
-No dia da **segunda etapa**, iremos homologar a História de Usuário (US) que você trouxe pronto da **primeira etapa**. 
-
-Iremos também fazer algumas perguntas sobre algumas das decisões tomadas por você em cima do seu projeto. Enfim, iremos conhecer melhor seu skill técnico. 
-
-Iremos também escolher juntos uma próxima História que poderá ser feita junto com a gente, online, dentro do tempo estipulado para a segunda etapa. Exatamente como se você estive com a gente numa sprint de Scrum.
-
-## É isso! 
-
-O desafio está dado o que foi colocado até aqui já é suficiente para realizá-lo. Resumindo:
-
-1. Primeira etapa: Em casa :house_with_garden: : Escolha uma das Historias de Usuário entre as 4 acima. Prepare seu ambiente e traga a historia implementada para a segunda etapa!
-
-2. Segunda Etapa: online, juntos :floppy_disk: : iremos homologar a História de Usuário (US) que você trouxe, fazer perguntas técnicas e eventualmente implementar uma segunda histórias juntos.
-
-
-## Daqui pra baixo é apenas material complementar de suporte ao seu desafio.
-Abaixo, para efeito de direcionar o desafio, vamos te ajudar e propor um caminho para sua implementação. Mais uma vez, aqui é apenas um guia/sugestão, você tem total autonomia para fazer diferente, desde que atenda aos requisitos impostos pelas USs.
-
-Se analisarmos o conjunto das USs tragas pelo nosso PM/PO acima, podemos já antecipar algumas Entidades necessárias na solução final:
-
-- Uma coleção de Usuários, onde cada usuário tem:
-  - um código da conta do usuário no Banco Toro (Para efeito de simplificaçao vc pode optar por usar o codigo da conta como codigo do usuário - chave primária, ou ter códigos separados);
-  - um saldo de conta corrente (como não existe o requisito de extrato de conta, etc, vamos simplificar o saldo como num único atributo numérico do usuário que pode ser 0 ou maior 0);
-  - Nome e CPF (nao está diretamente descrito no requisito, mas usaremos para identificar usuário na hora da transferencia bancária)
-  
-- Uma coleção de Ativos de Usuários
-  - Ativos adquiridos por um único usuário. Você precisa ter saber quais ativos e quantidade do mesmo ativo que o usuário possui. Não está no requisito saber o "valor de compra" do ativo, apenas o "valor atual", então pode ser ignorado esta informação;
-
-- Uma coleção contendo os "5 ativos mais negociados", e o seu valor atual (estes valores serao fiquitícios, mas deve ser possível alterá-los para efeito de demostração da solução final);
-
-
-Considerando as Entidades e Coleções de Entidades acima, você precisa implementar o backend e o frontend da solução. Vale lembrar que este desafio é o mesmo para vagas "Backend" ou "FullStack", então você pode optar por trazer pronto para a segunda etapa uma das partes ou as duas a depender da vaga em questão:
-
-### Sugestão para a US `TORO-002`:
-
-#### Backend:
-
-> API de saldo e patrimonio do cliente
-```jsonc
-GET <apiBaseUrl>/userPosition
+```http
+POST http://localhost:3000/sbp/events HTTP/1.1
+Content-Type: application/json
 
 {
-    "checkingAccountAmount": 234.00, // Saldo em conta corrente
-    "positions": [
-        {
-            "symbol": "PETR4",
-            "amount": 2,
-            "currentPrice": 28.44,
-        },
-        {
-            "symbol": "SANB11",
-            "amount": 3,
-            "currentPrice": 40.77
-        },
-    ],
-    "consolidated": 413.19 // (234.00 + (28.44 * 2) + (40.77 * 3)
+    "event": "TRANSFER",
+    "target": {
+        "bank": "352", 
+        "branch": "0001", 
+        "account": "300123"
+    },
+    "origin": {
+        "bank": "033", 
+        "branch": "03312", 
+        "cpf": "45358996060" 
+    },
+    "amount": 1000
 }
 ```
 
-Esta api deve mostrar a posição do usuário conforme descrito na US e na respectiva restrição. Os valores retornados por esta API deve ser diretamente impactados e refletir a realidades após as operações realizadas nas APIs anteriores (deposito e compra de ativos).
+A tabela abaixo mostra os retornos esperados dessa rota:
 
-#### Frontend:
-
-Para o frontend vc deve garantir que o usuário possa visualizar as informações de patrimônio conforme descritas na US e na proposta da API de backend.
-
-### Sugestão de implementação para `TORO-003`:
-
-#### Backend:
-
-Trazer pronto as seguintes APIs.
-
-
-> POST <apiBaseUrl>/spb/events
-```jsonc
-POST <apiBaseUrl>/spb/events
-
-{
-   "event": "TRANSFER",
-   "target": {
-       "bank": "352", // Banco Toro
-       "branch": "0001", // Única agenda, sempre 0001
-       "account": "300123", // Conta do usuário na Toro (unica por usuário)
-   },
-   "origin": {
-       "bank": "033", // Banco de origem 
-       "branch": "03312", // Agencia de origem
-       "cpf": "45358996060" // CPF do remetente
-   },
-   "amount": 1000, // R$ 1000,00 reais
-}
-```
-Esta API deverá está funcionando e poderá ser chamada para simular um evento de transferência / deposito na conta do usuário. Após o envio deste evento, o saldo do usuário cujo a conta está indicado no "target" deverá ser impactado (somado ao saldo atual). 
-
-De acordo com a "restrição" descrita para esta US, é necessário verificar se o cpf da origem é o mesmo do usuário a receber tal transferência.
-
-#### Frontend:
-
-- Para esta US, basta que exista na UI um lugar onde o usuário veja os dados da conta dele para transferência.
-
-### Para a `TORO-004`:
-
-#### Backend:
-
-> API de 5 ativos mais negocidos
-```jsonc
-GET <apiBaseUrl>/trends
-
-[
-    {
-        "symbol": "PETR4",
-        "currentPrice": 28.44
-    },
-    {
-        "symbol": "MGLU3",
-        "currentPrice": 25.91
-    },
-    {
-        "symbol": "VVAR3",
-        "currentPrice": 25.91
-    },
-    {
-        "symbol": "SANB11",
-        "currentPrice": 40.77
-    },
-    {
-        "symbol": "TORO4",
-        "currentPrice": 115.98
-    }
-
-]
-```
-
-> API ordem de compra
-```jsonc
-POST <apiBaseUrl>/order
-
-{
-    "symbol": "SANB11",
-    "amount": 3
-}
-```
-
-No exemplo acima o usuário deseja comprar 3 ações `SANB11`. Neste caso, a API deve chegar o valor de `SANB11` naquele momento (no exemplo, R$40.77), verificar se o usuário tem pelo menos R$122.31 disponível em conta corrente e, em caso afirmativo, realizar a compra (debitar o saldo e registrar as novas quantidades de ativos `SANB11` ao cliente). Caso não tenha saldo suficiente, ou o ativo informado seja invalido, a API deve retornar uma codido e uma mensagem de erro indicando "saldo insuficiente" ou "ativo invalido". Esta operação deve impactar o saldo e a lista de ativos do usuário.
-
-#### Frontend:
-
-Para o Frontend, você deve oferecer um fluxo onde o usuário veja lista dos ativos mais negociados, o valor de cada um, e possa clicar em um deles para comprar. Ao clicar, usuário deve informar a quantidade desejada para compra e submeter a ordem. Em caso de sucesso, usuário deve visualizar mensagem de sucesso e seu novo saldo e novas posições de ativos. Em caso de erro (saldo insuficiente) deverá ver msg apropriada.
-
-## Requisitos
-
-- O projeto deve ser publicado em um repositório público no github.com, bitbucket.org ou gitlab.com
-- README com instruções de como instalar as dependências do projeto, de como rodar a aplicação e os testes automatizados e de como fazer o deploy
-- Deve ser desenvolvido em NodeJS, .Net Core ou Dart
-- Front-End deve ser em Flutter ou Angular
-- Necessidades diferentes dos requisitos podem (devem) ser negociados previamente.
-
-### Bônus
-
-- Sistema executável rodando hospedado numa conta AWS.
-- Backend deployado com Framework Serverless ou AWS SAM, ou rodando em docker-compose;
-- Usar o CI/CD da plataforma onde hospedar o código (bitbucket pipelines, gitlab-ci, github actions)
-
-## Critérios de Avaliação
-
-Os seguintes critérios serão usados para avaliar o seu código:
-- Legibilidade;
-- Escopo;
-- Organização do código;
-- Padrões de projeto;
-- Existência e quantidade de bugs e gambiarras;
-- Qualidade e cobertura dos testes;
-- Documentação;
-- Contexto e cadência dos commits.
-- Princípios SOLID e Clean Code
-- Aderência aos 12 fatores: https://12factor.net/
-
-## Dúvidas
-
-Caso surjam dúvidas, entre em contato conosco pelo nosso email: desafiotoro@toroinvestimentos.com.br
+Código | Resultado | Causa
+---|---|---
+200 | Depósito realizado sem problemas | 
+400 | Erro na requisição do depósito | Algum erro relacionado ao objeto de depósito enviado.
+422 | Entidade não processável | O objeto de depósito não possui erros estruturais ou de valor, porém existe alguma regra do domínio de negócio que gerou um erro (Ex.: CPF informado é diferente do CPF do usuárioda conta).
+500 | Erro interno no servidor | Algum problema ocorreu não ligado a negócio. Perda de conexão com banco, falha na infraestrutura do serviço, ou algum erro de codificação.
