@@ -66,7 +66,7 @@ A primeira etapa do desafio consiste em você escolher uma das histórias acima 
 
 Então é isso. Escolha uma as 4 Histórias de usuário acima e Mãos à obra! Te esperamos na segunda etapa!
 
-## Segunda Etapa: online, juntos :floppy_disk:
+## Segunda Etapa: online, juntos ou pode trazer pronto :floppy_disk:
 
 No dia da **segunda etapa**, iremos homologar a História de Usuário (US) que você trouxe pronto da **primeira etapa**. 
 
