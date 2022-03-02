@@ -54,11 +54,11 @@ Considere as seguintes User Stories:
 
 ## Etapa:
 
-O Desafio Técnico da Toro Investimentos é composto de 2 etapas. A **primeira etapa** você deve fazer em casa e já implementar boa parte do problema, com o tempo que você precisar. A **segunda etapa** você fará online junto com o time da Toro (Techleads e/ou Desenvolvedores), e **deverá trazer a primeira etapa já desenvolvida**.
+O Desafio Técnico da Toro Investimentos deve ser feito no tempo que você precisar.
 
 Você está vivendo um dia a dia real nosso, as histórias acima são inspiradas em histórias reais elaboradas por nossos Product Managers (PM ou PO). Você, no papel de Time de Desenvolvimento, tem a liberdade para propor, discutir e implementar da melhor forma possível, buscando entregar o maior valor ao usuário no menor tempo, sem comprometer os requisitos, inclusive de qualidade.
 
-A primeira etapa do desafio consiste em você escolher uma das histórias acima e implementá-la. Prepare seu ambiente, crie um novo projeto, e implemente uma das USs. Este é o momento para considerar:
+O desafio consiste em você escolher uma das histórias acima e implementá-la. Prepare seu ambiente, crie um novo projeto, e implemente uma das USs. Este é o momento para considerar:
 
 - Qual padrão arquitetural será adotado MVC? Clean Architecture? APIs Restful? 
 - Como irei automatizar os testes? Em quais níveis irei implementar testes? Unitário? Integração? E2E?
@@ -68,14 +68,7 @@ Então é isso. Escolha uma as 4 Histórias de usuário acima e Mãos à obra! T
 
 Iremos também fazer algumas perguntas sobre algumas das decisões tomadas por você em cima do seu projeto. Enfim, iremos conhecer melhor seu skill técnico. 
 
-## É isso! 
-
-O desafio está dado o que foi colocado até aqui já é suficiente para realizá-lo. Resumindo:
-
-1. Primeira etapa: Em casa :house_with_garden: : Escolha uma das Historias de Usuário entre as 4 acima. Prepare seu ambiente e traga a historia implementada para a segunda etapa!
-
-2. Segunda Etapa: online, juntos :floppy_disk: : iremos homologar a História de Usuário (US) que você trouxe, fazer perguntas técnicas e eventualmente implementar uma segunda histórias juntos.
-
+## É isso! O desafio está dado o que foi colocado até aqui já é suficiente para realizá-lo.
 
 ## Daqui pra baixo é apenas material complementar de suporte ao seu desafio.
 Abaixo, para efeito de direcionar o desafio, vamos te ajudar e propor um caminho para sua implementação. Mais uma vez, aqui é apenas um guia/sugestão, você tem total autonomia para fazer diferente, desde que atenda aos requisitos impostos pelas USs.
