@@ -52,7 +52,7 @@ Considere as seguintes User Stories:
 
      - Para efeito de simplificação do desafio, as 5 ações mais negociadas nos últimos 7 dias e seus respectivos preços não precisa ser "real", pode ser definida utilizando algum recurso pre-definido no backend (uma coleção predefinida no banco de dados ou arquivo JSON).
 
-## Primeira etapa: Em casa :house_with_garden:
+## Etapa:
 
 O Desafio Técnico da Toro Investimentos é composto de 2 etapas. A **primeira etapa** você deve fazer em casa e já implementar boa parte do problema, com o tempo que você precisar. A **segunda etapa** você fará online junto com o time da Toro (Techleads e/ou Desenvolvedores), e **deverá trazer a primeira etapa já desenvolvida**.
 
@@ -66,13 +66,7 @@ A primeira etapa do desafio consiste em você escolher uma das histórias acima 
 
 Então é isso. Escolha uma as 4 Histórias de usuário acima e Mãos à obra! Te esperamos na segunda etapa!
 
-## Segunda Etapa: online, juntos ou pode trazer pronto :floppy_disk:
-
-No dia da **segunda etapa**, iremos homologar a História de Usuário (US) que você trouxe pronto da **primeira etapa**. 
-
 Iremos também fazer algumas perguntas sobre algumas das decisões tomadas por você em cima do seu projeto. Enfim, iremos conhecer melhor seu skill técnico. 
-
-Iremos também escolher juntos uma próxima História que poderá ser feita junto com a gente, online, dentro do tempo estipulado para a segunda etapa. Exatamente como se você estive com a gente numa sprint de Scrum.
 
 ## É isso! 
 
