@@ -207,16 +207,19 @@ Para o Frontend, você deve oferecer um fluxo onde o usuário veja lista dos ati
 
 - O projeto deve ser publicado em um repositório público no github.com, bitbucket.org ou gitlab.com
 - README com instruções de como instalar as dependências do projeto, de como rodar a aplicação e os testes automatizados e de como fazer o deploy
-- Deve ser desenvolvido em NodeJS, .Net Core ou Dart
-- Front-End deve ser em Flutter ou Angular
+- Deve ser desenvolvido em NodeJS, .Net Core, Dart ou python 3.7+ (FastAPI 0.97+)
+- Front-End deve ser em Flutter ou Angular (v14+)
 - Necessidades diferentes dos requisitos podem (devem) ser negociados previamente.
+- [Python] ORM utilizando SQLAlchemy e banco de dados MySQL 
 
 ### Bônus
 
 - Sistema executável rodando hospedado numa conta AWS.
 - Backend deployado com Framework Serverless ou AWS SAM, ou rodando em docker-compose;
 - Usar o CI/CD da plataforma onde hospedar o código (bitbucket pipelines, gitlab-ci, github actions)
-
+- FrontEnd utilizando Akita State Management e gráficos com bibliteca ngx-charts no Angular
+- [Python] Task no Celery para trilha de auditoria das ordens de compra
+  
 ## Critérios de Avaliação
 
 Os seguintes critérios serão usados para avaliar o seu código:
